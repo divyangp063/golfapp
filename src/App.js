@@ -5,11 +5,13 @@ import Home from "./components/home";
 import AboutUs from "./components/aboutUs";
 import ContactUs from "./components/contactUs";
 import MyCart from "./components/myCart";
+import { NavbarComponent } from './components/navbar';
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <NavbarComponent />
         <div className="content">
         <Routes>
           <Route path="/home" element={<Home />} />
