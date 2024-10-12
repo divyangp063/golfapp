@@ -1,0 +1,94 @@
+.price-badge {
+    font-size: 1rem; /* Adjust the size as needed */
+    padding: 0.5rem;
+    background-color: #000000;
+    color: white;
+}
+
+.minus-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 1.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.plus-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 1.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.select-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 1.25rem;
+    transition: background-color 0.3s ease;
+
+}
+
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.minus-btn:hover {
+    background-color: #c20d00;
+}
+
+.plus-btn:hover {
+    background-color: #0056b3;
+}
+
+.select-btn:hover {
+    background-color: #006c17;
+}
+
+.card-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.minus-btn:active {
+    background-color: #850000;
+}
+
+.plus-btn:active {
+    background-color: #004085;
+}
+
+.select-btn:active {
+    background-color: #00470f;
+}
+
+.select-btn:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    font-size: 1rem;
+    margin: 0 0.5rem;
+}
+
+.align-footer {
+    display: flex;
+    align-items: center;
+}

@@ -4,10 +4,12 @@ export const NavbarComponent = () => {
     return (
         <Navbar bg="dark" variant="dark" expand='lg'>
             <Container>
+                {/* Logo */}
                 <Navbar.Brand href="/home">GolfShopPro</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     
+                {/* Links to different pages */}
                 <Nav className="ms-auto">
                 <Nav.Link href="/home" className="text-light">Home</Nav.Link>
                     <Nav.Link href="/home/aboutUs">About Us</Nav.Link>
