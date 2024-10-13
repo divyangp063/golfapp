@@ -1,0 +1,45 @@
+.cart-holder{
+    width: 1400px;
+    margin:0 auto;
+}
+
+.item-card{
+    border: 1px solid #d9d9d9;
+    display: flex;
+    justify-content: stretch;
+    padding: 20px;
+    border-radius: 9px;
+    margin: 15px;
+}
+
+.item-card .image-container{
+    flex-grow: 2;
+}
+
+.item-card .title-container{
+    flex-grow: 8;
+}
+
+.item-card .price-container{
+    flex-grow: 2;
+}
+
+
+.item-image{
+    width: 100px;
+    display: inline-block;
+}
+
+.title-container{
+    text-align: start;
+}
+
+button{
+    padding: 10px;
+    background-color: aqua;
+    border: 0px solid;
+    border-color: none;
+    border-radius: 3px;
+    color: black;
+    font-weight: bold;
+}
