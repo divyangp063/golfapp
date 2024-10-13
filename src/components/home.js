@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './home.css'; // Import custom CSS
+import './Home.css'; // Import custom CSS
 
 const Home = () => {
     const [order, setOrder] = useState({
@@ -80,7 +80,6 @@ const Home = () => {
                 <h1>Golf Essentials</h1>
                 <p>Make the opponents throw, with GolfShopPro...</p>
             </header>
-
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-lg-4 col-md-6 mb-4">
@@ -226,7 +225,7 @@ const Home = () => {
             <br />
             <br />
             <footer className="footer bg-dark">
-                <p>© 2024 GolfShopPro Team 3, Inc.</p>
+                <p>© 2024 GolfShopPro Team 3, Inc. All Rights Reserved.</p>
             </footer>
         </div>
     );
