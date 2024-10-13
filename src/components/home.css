@@ -1,3 +1,12 @@
+.home-page {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .price-badge {
     font-size: 1rem; /* Adjust the size as needed */
     padding: 0.5rem;
@@ -51,17 +60,49 @@
     border-radius: 0.5rem;
 }
 
+.button-container {
+    text-align: center;
+    width: 100%;
+}
+
+.add-order {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    max-width: 200px;
+    text-align: center;
+    width: auto; /* Ensure the width is auto */
+}
+
 .github-icon {
-    color: #2b3137;
+    color: #ffffff;
     font-size: 3rem;
+    transition: background-color 0.3s ease;
+    display: block;
+    padding: 0.2rem;
+    border-radius: 100%;
 }
 
 .footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
-    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    width: 100%;
+    max-width: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.footer p {
+    margin: 1rem;
 }
 
 .card-text {
@@ -89,6 +130,17 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.add-order:hover {
+    background-color: #0366cf;
+    color: white;
+}
+
+.github-icon:hover {
+    transition: transform 0.3s ease;
+    color: #24292e;
+    background-color: #ffffff;
+}
+
 .minus-btn:active {
     background-color: #850000;
 }
@@ -101,7 +153,18 @@
     background-color: #00470f;
 }
 
+.add-order:active {
+    background-color: #004fa3;
+    color: white;
+}
+
 .select-btn:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.add-order:disabled {
     background-color: #ccc;
     color: #666;
     cursor: not-allowed;
@@ -125,8 +188,4 @@
 .image-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 0.25rem;
-}
-
-.github-icon:hover {
-    color: #24292e;
 }

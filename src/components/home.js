@@ -65,6 +65,8 @@ const Home = () => {
         }
     };
 
+    const isAnyItemSelected = isSelected.some((selected) => selected);
+
     /* Handle form submission */
     const handleSubmit = (e) => {
         const productDetails = order.productName.map((name, index) => `${name}: ${order.buyQuantity[index]}`).join('\n');
@@ -73,7 +75,7 @@ const Home = () => {
     };
 
     return (
-        <>
+        <div className="home-page">
             <header className="text-center my-4">
                 <h1>Golf Essentials</h1>
                 <p>Make the opponents throw, with GolfShopPro...</p>
@@ -218,17 +220,15 @@ const Home = () => {
                 </div>
             </div>
             <br />
-            <button className="btn btn-primary big-btn" onClick={handleSubmit} disabled={!isSelected[0] && !isSelected[1] && !isSelected[2] && !isSelected[3] && !isSelected[4]}>Add to cart</button>
+            <div className="button-container">
+                <button className="add-order" onClick={handleSubmit} disabled={!isAnyItemSelected}>Add to cart</button>
+            </div>
             <br />
             <br />
-            <hr />
-            <footer className="footer my-4">
-                <p style={{ fontSize: '1.5rem' }}>© 2024 GolfShopPro, Inc.</p>
-                <a href="https://github.com/divyangp063/golfapp" target="_blank" rel="noopener noreferrer">
-                    <i className="bi bi-github github-icon"></i>
-                </a>
+            <footer className="footer bg-dark">
+                <p>© 2024 GolfShopPro Team 3, Inc.</p>
             </footer>
-        </>
+        </div>
     );
 };
 
