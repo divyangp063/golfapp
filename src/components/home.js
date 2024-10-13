@@ -19,6 +19,7 @@ const Home = () => {
     const [isSelected, setIsSelected] = useState([false, false, false, false, false]);
     const navigate = useNavigate();
 
+    /* '+' button increments the quantity of the product */
     const handleIncrement = (index) => {
         const newOrder = { ...order };
         if (newOrder.buyQuantity[index] < 100) {
@@ -27,6 +28,7 @@ const Home = () => {
         }
     };
 
+    /* '-' button decrements the quantity of the product */
     const handleDecrement = (index) => {
         const newOrder = { ...order };
         if (newOrder.buyQuantity[index] > 0) {
@@ -35,6 +37,7 @@ const Home = () => {
         }
     };
 
+    /* Update the quantity of the product */
     const handleChange = (index, event) => {
         const value = event.target.value;
         const newOrder = { ...order };
@@ -49,6 +52,7 @@ const Home = () => {
         setOrder(newOrder);
     };
 
+    /* Select the product */
     const handleSelection = (index) => {
         const newSelection = [...isSelected];
         newSelection[index] = !newSelection[index];
@@ -61,12 +65,11 @@ const Home = () => {
         }
     };
 
+    /* Handle form submission */
     const handleSubmit = (e) => {
-        // e.preventDefault();
-        // navigate('/purchase/paymentEntry', { state: order });
-        // alert(`Products added: ${order.productName + ": " + order.buyQuantity.join(', ')}`);
         const productDetails = order.productName.map((name, index) => `${name}: ${order.buyQuantity[index]}`).join('\n');
         alert(`Products added:\n${productDetails}`);
+        navigate('/home/myCart', { state: order });
     };
 
     return (
@@ -215,7 +218,7 @@ const Home = () => {
                 </div>
             </div>
             <br />
-            <button className="btn btn-primary big-btn" onClick={handleSubmit}>Add to cart</button>
+            <button className="btn btn-primary big-btn" onClick={handleSubmit} disabled={!isSelected[0] && !isSelected[1] && !isSelected[2] && !isSelected[3] && !isSelected[4]}>Add to cart</button>
             <br />
             <br />
             <hr />
