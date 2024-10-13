@@ -236,7 +236,7 @@ const Home = () => {
             <br />
             <br />
             <footer className="footer bg-dark">
-                <p>© 2024 GolfShopPro Team 3, Inc. All Rights Reserved.</p>
+                <p>© 2024 Team 3 Golf. All Rights Reserved.</p>
             </footer>
         </div>
     );
