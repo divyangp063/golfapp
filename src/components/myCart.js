@@ -57,7 +57,7 @@ const MyCart = () => {
                     {list}
             </div>
 
-            <h4>Total: $ {total}</h4>
+            <h4>Total: $ {total.toFixed(2)}</h4>
             <button onClick={handleClick}> Proceed to Checkout </button>
             <footer className="footer bg-dark text-white mt-5 p-3 text-center">
                 <p>&copy; 2024 Team 3. All Rights Reserved.</p>
