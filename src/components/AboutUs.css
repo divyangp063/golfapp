@@ -17,11 +17,24 @@
     margin-bottom: 15px;
 }
 
-.list-group-item {
-    font-size: 1.2rem;
-    color: #b30000;
-    border: none;
-    padding: 10px 0;
+.team img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.team h5 {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    color: #424242;
+}
+
+.team p {
+    color: #666;
+    margin-top: 5px;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 .footer {
