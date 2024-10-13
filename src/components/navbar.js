@@ -4,6 +4,8 @@ import './navbar.css';
 
 export const NavbarComponent = () => {
     const location = useLocation();
+
+
     return (
         <Navbar bg="dark" variant="dark" expand='lg' className="custom-navbar">
             <Container>
