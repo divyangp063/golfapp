@@ -3,6 +3,12 @@
     padding: 0.5rem;
     background-color: #000000;
     color: white;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.card-hover:hover .price-badge {
+    opacity: 1;
 }
 
 .minus-btn {
@@ -37,6 +43,10 @@
     border-radius: 1.25rem;
     transition: background-color 0.3s ease;
 
+}
+
+.card-text {
+    text-align: left;
 }
 
 .card-hover {
@@ -91,4 +101,9 @@
 .align-footer {
     display: flex;
     align-items: center;
+}
+
+.image-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
 }
