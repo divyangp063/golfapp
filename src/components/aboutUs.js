@@ -43,7 +43,7 @@ const AboutUs = () => {
             </div>
 
             <footer className="footer bg-dark text-white mt-5 p-3 text-center">
-                <p>&copy; 2024 Team 3 Golf. All Rights Reserved.</p>
+                <p>&copy; 2024 Team 3. All Rights Reserved.</p>
             </footer>
         </div>
     );
