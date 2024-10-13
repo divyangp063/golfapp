@@ -1,8 +1,9 @@
 import {Navbar, Nav, Container} from 'react-bootstrap';
+import './navbar.css';
 
 export const NavbarComponent = () => {
     return (
-        <Navbar bg="dark" variant="dark" expand='lg'>
+        <Navbar bg="dark" variant="dark" expand='lg' className="custom-navbar">
             <Container>
                 {/* Logo */}
                 <Navbar.Brand href="/home">GolfShopPro</Navbar.Brand>

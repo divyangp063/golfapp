@@ -72,7 +72,8 @@ const Home = () => {
     return (
         <>
             <header className="text-center my-4">
-                <h1>GolfShopPro</h1>
+                <h1>Golf Essentials</h1>
+                <p>Make the opponents throw, with GolfShopPro...</p>
             </header>
 
             <div className="container">
@@ -214,12 +215,15 @@ const Home = () => {
                 </div>
             </div>
             <br />
-            <button className="btn btn-primary" onClick={handleSubmit}>Add to cart</button>
+            <button className="btn btn-primary big-btn" onClick={handleSubmit}>Add to cart</button>
             <br />
             <br />
             <hr />
-            <footer className="text-left my-4">
-                <p>© 2024 GolfShopPro, Inc</p>
+            <footer className="footer my-4">
+                <p style={{ fontSize: '1.5rem' }}>© 2024 GolfShopPro, Inc.</p>
+                <a href="https://github.com/divyangp063/golfapp" target="_blank" rel="noopener noreferrer">
+                    <i className="bi bi-github github-icon"></i>
+                </a>
             </footer>
         </>
     );
