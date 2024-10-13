@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './Home.css'; // Import custom CSS
+import './home.css'; // Import custom CSS
 
 const Home = () => {
     const [order, setOrder] = useState({
         buyQuantity: [0, 0, 0, 0, 0],
+        productName: ['Titleist Pro V1', 'Callaway HEX Warbird', 'Callaway HEX Diablo', 'Bridgestone E6', 'Bridgestone B330-RX'],
+        productPrice: [47.99, 14.95, 47.99, 21.95, 37.95],
+       productImage: ['V1XCover.jpg', 'CallawayWarbird.jpg','CallawayDiablo.jpg','BridgestoneE6.jpg','BridgestoneTout.jpg'],
         productName: ['Titleist Pro V1', 'Callaway Golf HEX Warbird', 'Callaway Golf HEX Diablo', 'Bridgestone Prior GenerationE6', 'Bridgestone Tout B330-RX'],
         credit_card_number: '',
         expiry_date: '',
