@@ -8,6 +8,7 @@ const Home = () => {
         productName: ['Titleist Pro V1', 'Callaway HEX Warbird', 'Callaway HEX Diablo', 'Bridgestone E6', 'Bridgestone B330-RX'],
         productPrice: [47.99, 14.95, 47.99, 21.95, 37.95],
        productImage: ['V1XCover.jpg', 'CallawayWarbird.jpg','CallawayDiablo.jpg','BridgestoneE6.jpg','BridgestoneTout.jpg'],
+        productName: ['Titleist Pro V1', 'Callaway Golf HEX Warbird', 'Callaway Golf HEX Diablo', 'Bridgestone Prior GenerationE6', 'Bridgestone Tout B330-RX'],
         credit_card_number: '',
         expiry_date: '',
         cvvCode: '',
@@ -71,9 +72,20 @@ const Home = () => {
 
     /* Handle form submission */
     const handleSubmit = (e) => {
-        const productDetails = order.productName.map((name, index) => `${name}: ${order.buyQuantity[index]}`).join('\n');
-        alert(`Products added:\n${productDetails}`);
-        navigate('/home/myCart', { state: order });
+        e.preventDefault(); // Prevent default form submission behavior
+    
+        const selectedProducts = order.productName
+            .map((name, index) => ({ name, quantity: order.buyQuantity[index], selected: isSelected[index] }))
+            .filter(product => product.selected && product.quantity > 0)
+            .map(product => `${product.name}: ${product.quantity}`)
+            .join('\n');
+    
+        if (selectedProducts.length > 0) {
+            alert(`Products added:\n${selectedProducts}`);
+            navigate('/home/myCart', { state: order });
+        } else {
+            alert('No products selected.');
+        }
     };
 
     return (
