@@ -47,8 +47,6 @@ const MyCart = () => {
         }
     }
 
-    const emptylist = []
-
     return (
         <div>
             <h1>
