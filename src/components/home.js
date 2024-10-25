@@ -35,6 +35,7 @@ const Home = () => {
                 setInventory(data);
                 setIsSelected(new Array(data.length).fill(false));
                 setOrder({
+                    /* Map items to their corresponding API spots */
                     ...order,
                     productName: data.map(item => item.name),
                     buyQuantity: new Array(data.length).fill(0),
