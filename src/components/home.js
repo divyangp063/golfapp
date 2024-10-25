@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './navbar.css';
 import './Home.css'; // Import custom CSS
@@ -6,9 +6,9 @@ import './Home.css'; // Import custom CSS
 const Home = () => {
     const [order, setOrder] = useState({
         buyQuantity: [0, 0, 0, 0, 0],
-        productPrice: [47.99, 14.95, 47.99, 21.95, 37.95],
-        productImage: ['V1XCover.jpg', 'CallawayWarbird.jpg','CallawayDiablo.jpg','BridgestoneE6.jpg','BridgestoneTout.jpg'],
-        productName: ['Titleist Pro V1', 'Callaway Golf HEX Warbird', 'Callaway Golf HEX Diablo', 'Bridgestone Prior GenerationE6', 'Bridgestone Tout B330-RX'],
+        productPrice: [],
+        productImage: [],
+        productName: [],
         credit_card_number: '',
         expiry_date: '',
         cvvCode: '',
@@ -20,9 +20,25 @@ const Home = () => {
         zip: '',
     });
     const [isSelected, setIsSelected] = useState([false, false, false, false, false]);
+    const [inventory, setInventory] = useState([]);
     const navigate = useNavigate();
 
-    /* '+' button increments the quantity of the product */
+    useEffect(() => {
+        fetch('https://xjz3fpwsp6.execute-api.us-east-2.amazonaws.com/production/inventory-management/inventory')
+            .then(response => response.json())
+            .then(data => {
+                setInventory(data);
+                setIsSelected(new Array(data.length).fill(false));
+                setOrder({
+                    ...order,
+                    productName: data.map(item => item.name),
+                    buyQuantity: new Array(data.length).fill(0),
+                    productImage: data.map(item => item.image),
+                    productPrice: data.map(item => item.price)
+                });
+            });
+    }, []);
+
     const handleIncrement = (index) => {
         const newOrder = { ...order };
         if (newOrder.buyQuantity[index] < 100) {
@@ -31,7 +47,6 @@ const Home = () => {
         }
     };
 
-    /* '-' button decrements the quantity of the product */
     const handleDecrement = (index) => {
         const newOrder = { ...order };
         if (newOrder.buyQuantity[index] > 0) {
@@ -40,210 +55,49 @@ const Home = () => {
         }
     };
 
-    /* Update the quantity of the product */
-    const handleChange = (index, event) => {
-        const value = event.target.value;
-        const newOrder = { ...order };
-        if (value === "") {
-            newOrder.buyQuantity[index] = 0;
-        } else {
-            const parsedValue = parseInt(value, 10);
-            if (!isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= 100) {
-                newOrder.buyQuantity[index] = parsedValue;
-            }
-        }
-        setOrder(newOrder);
-    };
-
-    /* Select the product */
     const handleSelection = (index) => {
         const newSelection = [...isSelected];
         newSelection[index] = !newSelection[index];
         setIsSelected(newSelection);
-
-        if (!newSelection[index]) {
-            const newOrder = { ...order };
-            newOrder.buyQuantity[index] = 0;
-            setOrder(newOrder);
-        }
     };
 
-    const isAnyItemSelected = isSelected.some((selected) => selected);
-
-    /* Handle form submission */
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-    
+        e.preventDefault();
         const selectedProducts = order.productName
             .map((name, index) => ({ name, quantity: order.buyQuantity[index], selected: isSelected[index] }))
-            .filter(product => product.selected && product.quantity > 0)
-            .map(product => `${product.name}: ${product.quantity}`)
-            .join('\n');
-    
+            .filter(product => product.selected && product.quantity > 0);
         if (selectedProducts.length > 0) {
-            alert(`Products added:\n${selectedProducts}`);
-            navigate('/home/myCart', { state: order });
+            alert(`Products added:\n${selectedProducts.map(p => `${p.name}: ${p.quantity}`).join('\n')}`);
+            navigate('/home/myCart', { state: { order } });
         } else {
             alert('No products selected.');
         }
     };
 
     return (
-        <>
-            <div className="home-page">
-                <header className="text-center my-4">
-                    <h1>Golf Essentials</h1>
-                    <p>Make the opponents throw, with GolfShopPro...</p>
-                </header>
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="card h-100 card-hover">
-                                <div className="position-relative">
-                                    <img className="card-img-top image-shadow" src={require("../assets/V1XCover.jpg")} alt="Golf club cover" />
-                                    <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: $47.99</span>
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Titleist Pro V1</h5>
-                                    <hr className="title-separator" />
-                                    <p className="card-text">A premium golf ball designed for golfers seeking optimal performance in all areas of their game. Known for its exceptional distance, consistent flight, and soft feel.</p>
-                                </div>
-                                <div className="card-footer d-flex justify-content-between align-items-center">
-                                    <div className="quantity-control">
-                                        <button className="minus-btn" onClick={() => handleDecrement(0)}>-</button>
-                                        <input
-                                            type="text"
-                                            className="quantity-input"
-                                            value={order.buyQuantity[0]}
-                                            onChange={(e) => handleChange(0, e)}
-                                        />
-                                        <button className="plus-btn" onClick={() => handleIncrement(0)}>+</button>
-                                    </div>
-                                    <button className="select-btn" onClick={() => handleSelection(0)} disabled={order.buyQuantity[0] === 0}>{isSelected[0] ? "Selected" : "Select"}</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="card h-100 card-hover">
-                                <div className="position-relative">
-                                    <img className="card-img-top image-shadow" src={require("../assets/CallawayWarbird.jpg")} alt="Golf club cover" />
-                                    <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: $14.95</span>
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Callaway Golf HEX Warbird</h5>
-                                    <hr className="title-separator" />
-                                    <p className="card-text">Built with Callaway’s proprietary HEX Aerodynamics, the Warbird reduces drag and promotes a stable, high-flying ball trajectory, even in windy conditions.</p>
-                                </div>
-                                <div className="card-footer d-flex justify-content-between align-items-center">
-                                    <div className="quantity-control">
-                                        <button className="minus-btn" onClick={() => handleDecrement(1)}>-</button>
-                                        <input
-                                            type="text"
-                                            className="quantity-input"
-                                            value={order.buyQuantity[1]}
-                                            onChange={(e) => handleChange(1, e)}
-                                        />
-                                        <button className="plus-btn" onClick={() => handleIncrement(1)}>+</button>
-                                    </div>
-                                    <button className="select-btn" onClick={() => handleSelection(1)} disabled={order.buyQuantity[1] === 0}>{isSelected[1] ? "Selected" : "Select"}</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="card h-100 card-hover">
-                                <div className="position-relative">
-                                    <img className="card-img-top image-shadow" src={require("../assets/CallawayDiablo.jpg")} alt="Golf club cover" />
-                                    <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: $47.99</span>
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Callaway Golf HEX Diablo</h5>
-                                    <hr className="title-separator" />
-                                    <p className="card-text">A versatile golf ball engineered for players seeking a balance of long distance, soft feel, and control. Featuring Callaway’s advanced HEX Aerodynamics, this ball reduces drag for a penetrating flight and stable performance in various conditions.</p>
-                                </div>
-                                <div className="card-footer d-flex justify-content-between align-items-center">
-                                    <div className="quantity-control">
-                                        <button className="minus-btn" onClick={() => handleDecrement(2)}>-</button>
-                                        <input
-                                            type="text"
-                                            className="quantity-input"
-                                            value={order.buyQuantity[2]}
-                                            onChange={(e) => handleChange(2, e)}
-                                        />
-                                        <button className="plus-btn" onClick={() => handleIncrement(2)}>+</button>
-                                    </div>
-                                    <button className="select-btn" onClick={() => handleSelection(2)} disabled={order.buyQuantity[2] === 0}>{isSelected[2] ? "Selected" : "Select"}</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="card h-100 card-hover">
-                                <div className="position-relative">
-                                    <img className="card-img-top image-shadow" src={require("../assets/BridgestoneE6.jpg")} alt="Golf club cover" />
-                                    <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: $21.95</span>
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Bridgestone Prior Generation E6</h5>
-                                    <hr className="title-separator" />
-                                    <p className="card-text">A performance-focused golf ball designed to help golfers achieve straighter, longer shots with enhanced control. Known for its soft feel and excellent forgiveness, the E6 features a multilayer construction optimized for reducing sidespin, which helps minimize slices and hooks, allowing for more accurate and straighter ball flight.</p>
-                                </div>
-                                <div className="card-footer d-flex justify-content-between align-items-center">
-                                    <div className="quantity-control">
-                                        <button className="minus-btn" onClick={() => handleDecrement(3)}>-</button>
-                                        <input
-                                            type="text"
-                                            className="quantity-input"
-                                            value={order.buyQuantity[3]}
-                                            onChange={(e) => handleChange(3, e)}
-                                        />
-                                        <button className="plus-btn" onClick={() => handleIncrement(3)}>+</button>
-                                    </div>
-                                    <button className="select-btn" onClick={() => handleSelection(3)} disabled={order.buyQuantity[3] === 0}>{isSelected[3] ? "Selected" : "Select"}</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="card h-100 card-hover">
-                                <div className="position-relative">
-                                    <img className="card-img-top image-shadow" src={require("../assets/BridgestoneTout.jpg")} alt="Golf club cover" />
-                                    <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: $37.95</span>
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Bridgestone Tout B330-RX</h5>
-                                    <hr className="title-separator" />
-                                    <p className="card-text">A premium golf ball designed for players with moderate swing speeds who are looking for tour-level performance without sacrificing distance. Featuring a soft multilayer construction, the B330-RX combines advanced distance technology with excellent control and feel, making it ideal for golfers seeking the best of both worlds.</p>
-                                </div>
-                                <div className="card-footer d-flex justify-content-between align-items-center">
-                                    <div className="quantity-control">
-                                        <button className="minus-btn" onClick={() => handleDecrement(4)}>-</button>
-                                        <input
-                                            type="text"
-                                            className="quantity-input"
-                                            value={order.buyQuantity[4]}
-                                            onChange={(e) => handleChange(4, e)}
-                                        />
-                                        <button className="plus-btn" onClick={() => handleIncrement(4)}>+</button>
-                                    </div>
-                                    <button className="select-btn" onClick={() => handleSelection(4)} disabled={order.buyQuantity[4] === 0}>{isSelected[4] ? "Selected" : "Select"}</button>
-                                </div>
-                            </div>
-                        </div>
+        <div>
+            <h1>Available Products</h1>
+            <form onSubmit={handleSubmit}>
+                {inventory.map((item, index) => (
+                    <div key={item.id}>
+                        <input
+                            type="checkbox"
+                            checked={isSelected[index]}
+                            onChange={() => handleSelection(index)}
+                        />
+                        <span>{item.name}</span>
+                        <button type="button" onClick={() => handleDecrement(index)}>-</button>
+                        <input
+                            type="number"
+                            value={order.buyQuantity[index]}
+                            readOnly
+                        />
+                        <button type="button" onClick={() => handleIncrement(index)}>+</button>
                     </div>
-                </div>
-                <br />
-                <div className="button-container">
-                    <button className="add-order" onClick={handleSubmit} disabled={!isAnyItemSelected}>Add to cart</button>
-                </div>
-                <br />
-                <br />
-                <footer className="footer bg-dark">
-                    <p>© 2024 Team 3 Golf. All Rights Reserved.</p>
-                </footer>
-            </div>
-        </>
+                ))}
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
     );
 };
 

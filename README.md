@@ -14,6 +14,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+### `API View`
+
+Shows the content from API link.\
+Type `Invoke-WebRequest -Uri "https://xjz3fpwsp6.execute-api.us-east-2.amazonaws.com/production/inventory-management/inventory" -Method Get` to see the contents
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
