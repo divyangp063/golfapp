@@ -40,7 +40,8 @@ const Home = () => {
                     productName: data.map(item => item.name),
                     buyQuantity: new Array(data.length).fill(0),
                     productImage: data.map(item => item.image),
-                    productPrice: data.map(item => item.price)
+                    productPrice: data.map(item => item.price),
+                    productDescription: data.map(item => item.description)
                 });
             })
             .catch(error => {
