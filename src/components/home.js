@@ -125,7 +125,7 @@ const Home = () => {
                                     <div className="position-relative">
                                         <img className="card-img-top image-shadow" src={require(`../assets/${item.image}`)} alt={item.name} />
                                         <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: ${item.price}</span>
-                                        <span className="badge position-absolute bottom-0 start-0 m-3 price-badge">Items left: ${item.quantity}</span>
+                                        <span className="badge position-absolute bottom-0 start-0 m-3 price-badge">Items left: {item.quantity}!</span>
                                     </div>
                                     <div className="card-body">
                                         <h5 className="card-title">{item.name}</h5>
