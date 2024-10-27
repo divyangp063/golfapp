@@ -62,9 +62,8 @@ const MyCart = () => {
             }
         })
         .catch(error => {
-            setError('body', error);
             console.error('Error updating stock:', error);
-            // setError('There was a problem updating the stock. Please try again.');
+            setError('There was a problem updating the stock. Please try again.');
         });
     }
 
