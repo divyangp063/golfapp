@@ -7,7 +7,7 @@ const MyCart = () => {
     const { state } = useLocation(); // Get order details from state
 
     const order = state; // Destructure order details from the state
-    const [error, setError] = useState(null); // State to store error message
+    const [error, setError] = useState(null); // State to store error message for display
     const list = [];
     let total = 0;
 
@@ -58,12 +58,12 @@ const MyCart = () => {
             if (status === 200 && body.message === 'Inventory updated successfully') {
                 alert(`Order processed successfully. Total: $${total.toFixed(2)}`);
             } else {
-                setError(JSON.stringify(body, null, 2) || 'There was an issue with processing your order.');
+                setError(`Error: ${JSON.stringify(body, null, 2)}`);
             }
         })
         .catch(error => {
-            console.error('Error updating stock:', error);
-            setError('There was a problem updating the stock. Please try again.');
+            // Set the error message to display on the website
+            setError(`There was a problem updating the stock. Please try again.\n\nError: ${error.message || error}`);
         });
     }
 
@@ -71,7 +71,7 @@ const MyCart = () => {
         <div>
             <h1>{title}</h1>
             {/* Display error message at the top if present */}
-            {error && <pre className="error-message">{error}</pre>}
+            {error && <div className="error-message">{error}</div>}
             <div className="cart-holder">
                 <hr/>
                 {list}
