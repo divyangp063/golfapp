@@ -6,6 +6,7 @@ import AboutUs from "./components/aboutUs";
 import ContactUs from "./components/contactUs";
 import MyCart from "./components/myCart";
 import { NavbarComponent } from './components/navbar';
+import OrderConfirmation from './components/OrderConfirmation';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/home/aboutUs' element={<AboutUs />} />
           <Route path='/home/contactUs' element={<ContactUs />} />
           <Route path='/home/myCart' element={<MyCart />} />
+          <Route path='/home/OrderConfirmation' element={<OrderConfirmation />} />
         </Routes>
         </div>
       </Router>

@@ -1,43 +1,21 @@
 import React from "react";
 
 import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import './MyCart.css';
 
 
 
 
-const MyCart = () => {
-    let title = "My Cart page";
+const OrderConfirmation = () => {
+    let title = "Order Confirmation";
 
-    const navigate = useNavigate()
+
 
     const { state } = useLocation();
-    const order = state
+    const order = state;
 
-    function handleClick(){
-        console.log(state)
-        fetch('https://homijhy3omou5nz6wlyn2fx7pm0tpwae.lambda-url.us-east-2.on.aws/order', 
-            {
-            method: 'POST',
-            body: JSON.stringify(order),
-            headers: {
-            },
-            mode:'cors'
-        })
-        .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-        })
-        .then((data) => {
-                order.orderConfirmationID = data
-                navigate('/home/OrderConfirmation', { state: order });
-        })
-        
-    }
+    console.log(order)
 
     const list = []
     let total = 0;
@@ -72,13 +50,13 @@ const MyCart = () => {
             <h1>
                 {title}
             </h1>
+            <h3> Order Confirmation Id: {order.orderConfirmationID}</h3>
             <div className="cart-holder">
                 <hr/>
                     {list}
             </div>
 
             <h4>Total: $ {total.toFixed(2)}</h4>
-            <button onClick={handleClick}> Proceed to Checkout </button>
             <footer className="footer bg-dark text-white mt-5 p-3 text-center">
                 <p>&copy; 2024 Team 3. All Rights Reserved.</p>
             </footer>
@@ -86,4 +64,4 @@ const MyCart = () => {
     );
 };
 
-export default MyCart;
+export default OrderConfirmation;
