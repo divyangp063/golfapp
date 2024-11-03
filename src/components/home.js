@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './navbar.css';
-import './Home.css'; // Import custom CSS
+import './home.css'; // Import custom CSS
 
 const Home = () => {
     const [order, setOrder] = useState({
