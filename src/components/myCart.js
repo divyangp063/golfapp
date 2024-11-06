@@ -55,11 +55,12 @@ const MyCart = () => {
         })
         .then(response => response.json().then(data => ({ status: response.status, body: data })))
         .then(({ status, body }) => {
-            if (status === 200 && body.message === 'Inventory updated successfully') {
+            if (status === 200) { //&& body.message === 'Inventory updated successfully') {
                 alert(`Order processed successfully. Total: $${total.toFixed(2)}`);
-            } else {
-                setError(`Error: ${JSON.stringify(body, null, 2)}`);
             }
+            // } else {
+            //     setError(`Error: ${JSON.stringify(body, null, 2)}`);
+            // }
         })
         .catch(error => {
             // Set the error message to display on the website
