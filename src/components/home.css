@@ -170,6 +170,13 @@
     cursor: not-allowed;
 }
 
+.quantity-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
 .quantity-input {
     width: 50px;
     text-align: center;
@@ -189,3 +196,4 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 0.25rem;
 }
+

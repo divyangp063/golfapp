@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import './MyCart.css';
 
 const MyCart = () => {
     const title = "My Cart page";
     const { state } = useLocation(); // Get order details from state
+    const navigate = useNavigate(); // Navigate to other pages
 
     const order = state; // Destructure order details from the state
     const [error, setError] = useState(null); // State to store error message for display
@@ -57,10 +58,11 @@ const MyCart = () => {
         .then(({ status, body }) => {
             if (status === 200) { //&& body.message === 'Inventory updated successfully') {
                 alert(`Order processed successfully. Total: $${total.toFixed(2)}`);
+                navigate('/'); // Redirect to home page after successful order
             }
-            // } else {
-            //     setError(`Error: ${JSON.stringify(body, null, 2)}`);
-            // }
+             else {
+                setError(`Error: ${JSON.stringify(body, null, 2)}`);
+            }
         })
         .catch(error => {
             // Set the error message to display on the website
