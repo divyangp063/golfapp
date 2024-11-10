@@ -104,7 +104,7 @@ const Home = () => {
     
         if (selectedProducts.length > 0) {
             alert(`Products added:\n${selectedProducts}`);
-            navigate('/home/myCart', { state: order });
+            navigate('/home/shipping-info', { state: order });
         } else {
             alert('No products selected.');
         }

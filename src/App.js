@@ -7,6 +7,8 @@ import ContactUs from "./components/contactUs";
 import MyCart from "./components/myCart";
 import { NavbarComponent } from './components/navbar';
 import OrderConfirmation from './components/OrderConfirmation';
+import ShippingInfo from './components/ShippingInfo';
+import PaymentInfo from './components/PaymentInfo';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path='/home/aboutUs' element={<AboutUs />} />
           <Route path='/home/contactUs' element={<ContactUs />} />
           <Route path='/home/myCart' element={<MyCart />} />
+          <Route path='/home/shipping-info' element={<ShippingInfo />} />
+          <Route path='/home/payment-info' element={<PaymentInfo />} />
           <Route path='/home/OrderConfirmation' element={<OrderConfirmation />} />
         </Routes>
         </div>

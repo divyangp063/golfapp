@@ -16,13 +16,16 @@ const MyCart = () => {
     const { state } = useLocation();
     const order = state
 
-    function handleClick(){
-        console.log(state)
-        fetch('https://homijhy3omou5nz6wlyn2fx7pm0tpwae.lambda-url.us-east-2.on.aws/order', 
+    function handleClick(e){
+
+        e.preventDefault()
+        const localAddr = 'http://localhost:3000/order-confirmation'
+        fetch(localAddr, 
             {
             method: 'POST',
-            body: JSON.stringify(order),
+            body: JSON.stringify(),
             headers: {
+                'Content-Type':'application/json'
             },
             mode:'cors'
         })
@@ -30,13 +33,8 @@ const MyCart = () => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return response.json();
         })
-        .then((data) => {
-                order.orderConfirmationID = data
-                navigate('/home/OrderConfirmation', { state: order });
-        })
-        
+
     }
 
     const list = []
