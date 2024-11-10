@@ -40,11 +40,13 @@ const MyCart = () => {
 
         // Prepare data to update stock
         const updatedInventory = order.productName
-            .map((name, index) => ({
-                name: name,
+            .map((NAME, index) => ({
+                name: NAME,
                 quantity: order.buyQuantity[index]
             }))
             .filter(item => item.quantity > 0); // Only include items with quantity > 0
+
+        console.log('Updated inventory to send:', updatedInventory); // Log the updated inventory
 
         // Send API request to update inventory stock
         fetch('https://xjz3fpwsp6.execute-api.us-east-2.amazonaws.com/prod/order-processing/order', {
@@ -56,11 +58,22 @@ const MyCart = () => {
         })
         .then(response => response.json().then(data => ({ status: response.status, body: data })))
         .then(({ status, body }) => {
-            if (status === 200) { //&& body.message === 'Inventory updated successfully') {
+            console.log('Response status:', status); // Log the response status
+            console.log('Response body:', body); // Log the response body
+            if (status === 200) {
                 alert(`Order processed successfully. Total: $${total.toFixed(2)}`);
-                navigate('/'); // Redirect to home page after successful order
-            }
-             else {
+                // Fetch updated inventory
+                fetch('https://xjz3fpwsp6.execute-api.us-east-2.amazonaws.com/prod/inventory-management/inventory')
+                    .then(response => response.json())
+                    .then(updatedInventory => {
+                        console.log('Fetched updated inventory:', updatedInventory); // Log the fetched updated inventory
+                        // Navigate to homepage with updated inventory
+                        navigate('/', { state: { updatedInventory } });
+                    })
+                    .catch(error => {
+                        setError(`Failed to fetch updated inventory. Error: ${error.message || error}`);
+                    });
+            } else {
                 setError(`Error: ${JSON.stringify(body, null, 2)}`);
             }
         })
