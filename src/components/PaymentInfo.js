@@ -33,20 +33,21 @@ function PaymentInfo(){
             },
             mode:'cors'
         })
-        .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+        .then((response) => response.json())
+        .then((data)=>{
 
-                console.log(order)
+            console.log(data)
 
                 order.card_holder_name = paymentInfo.holder_name
-                order.card_no = paymentInfo.card_no
+                order.credit_card_number = paymentInfo.card_no
                 order.expiration_date = paymentInfo.expiration_date
                 order.cvv = paymentInfo.cvv
+                order.paymentInfoId = data.result
+
+                console.log('Order State at Shipping',order)
 
                 
-                navigate('/home/myCart',{state:order});
+                navigate('/home/shipping-info',{state:order});
         })
 
     }

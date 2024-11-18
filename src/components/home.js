@@ -18,6 +18,7 @@ const Home = () => {
         city: '',
         state: '',
         zip: '',
+        email:''
     });
     const [isSelected, setIsSelected] = useState([]);
     const [inventory, setInventory] = useState([]);
@@ -37,11 +38,11 @@ const Home = () => {
                 setOrder({
                     /* Map items to their corresponding API spots */
                     ...order,
-                    productName: data.map(item => item.name),
+                    productName: data.map(item => item.NAME),
                     buyQuantity: new Array(data.length).fill(0),
-                    productImage: data.map(item => item.image),
-                    productPrice: data.map(item => item.price),
-                    productDescription: data.map(item => item.description)
+                    productImage: data.map(item => item.IMAGE),
+                    productPrice: data.map(item => item.UNIT_PRICE),
+                    productDescription: data.map(item => item.DESCRIPTION)
                 });
             })
             .catch(error => {
@@ -66,48 +67,15 @@ const Home = () => {
     };
 
     const handleChange = (index, event) => {
-        const value = event.target.value;
+
         const newOrder = { ...order };
-        if (value === "") {
-            newOrder.buyQuantity[index] = 0;
-        } else {
-            const parsedValue = parseInt(value, 10);
-            if (!isNaN(parsedValue) && parsedValue >= 0 && parsedValue <= 100) {
-                newOrder.buyQuantity[index] = parsedValue;
-            }
-        }
+        newOrder.buyQuantity[index] = parseInt(event.target.value);
         setOrder(newOrder);
     };
 
-    const handleSelection = (index) => {
-        const newSelection = [...isSelected];
-        newSelection[index] = !newSelection[index];
-        setIsSelected(newSelection);
 
-        if (!newSelection[index]) {
-            const newOrder = { ...order };
-            newOrder.buyQuantity[index] = 0;
-            setOrder(newOrder);
-        }
-    };
-
-    const isAnyItemSelected = isSelected.some((selected) => selected);
-
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-    
-        const selectedProducts = order.productName
-            .map((name, index) => ({ name, quantity: order.buyQuantity[index], selected: isSelected[index] }))
-            .filter(product => product.selected && product.quantity > 0)
-            .map(product => `${product.name}: ${product.quantity}`)
-            .join('\n');
-    
-        if (selectedProducts.length > 0) {
-            alert(`Products added:\n${selectedProducts}`);
-            navigate('/home/shipping-info', { state: order });
-        } else {
-            alert('No products selected.');
-        }
+    const handleSubmit = () => {
+        navigate('/home/payment-info', { state: order });
     };
 
     return (
@@ -123,16 +91,16 @@ const Home = () => {
                             <div className="col-lg-4 col-md-6 mb-4" key={item.id}>
                                 <div className="card h-100 card-hover">
                                     <div className="position-relative">
-                                        <img className="card-img-top image-shadow" src={require(`../assets/${item.image}`)} alt={item.name} />
-                                        <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: ${item.price}</span>
-                                        <span className="badge position-absolute bottom-0 start-0 m-3 price-badge">Items left: {item.quantity}!</span>
+                                        <img className="card-img-top image-shadow" src={require(`../assets/${item.IMAGE}`)} alt={item.NAME} />
+                                        <span className="badge position-absolute top-0 end-0 m-3 price-badge">Unit price: ${item.UNIT_PRICE}</span>
+                                        <span className="badge position-absolute bottom-0 start-0 m-3 price-badge">Items left: {item.AVAILABLE_QUANTITY}</span>
                                     </div>
                                     <div className="card-body">
-                                        <h5 className="card-title">{item.name}</h5>
+                                        <h5 className="card-title">{item.NAME}</h5>
                                         <hr className="title-separator" />
-                                        <p className="card-text">{item.description}</p>
+                                        <p className="card-text">{item.DESCRIPTION}</p>
                                     </div>
-                                    <div className="card-footer d-flex justify-content-between align-items-center">
+                                    <div className="card-footer d-flex justify-content-center align-items-center">
                                         <div className="quantity-control">
                                             <button className="minus-btn" onClick={() => handleDecrement(index)}>-</button>
                                             <input
@@ -143,7 +111,6 @@ const Home = () => {
                                             />
                                             <button className="plus-btn" onClick={() => handleIncrement(index)}>+</button>
                                         </div>
-                                        <button className="select-btn" onClick={() => handleSelection(index)} disabled={order.buyQuantity[index] === 0}>{isSelected[index] ? "Selected" : "Select"}</button>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +119,7 @@ const Home = () => {
                 </div>
                 <br />
                 <div className="button-container">
-                    <button className="add-order" onClick={handleSubmit} disabled={!isAnyItemSelected}>Add to cart</button>
+                    <button className="add-order" onClick={handleSubmit} disabled={!order.buyQuantity.some(quantity => quantity > 0)}>Add to cart</button>
                 </div>
                 <br />
                 <br />

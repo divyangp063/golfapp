@@ -26,10 +26,8 @@ function ShippingInfo(){
             },
             mode:'cors'
         })
-        .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+        .then((response) => response.json()) 
+        .then((data)=>{
 
                 //console.log(order)
                 order.address_1 = shippingInfo.address_1
@@ -37,9 +35,11 @@ function ShippingInfo(){
                 order.city = shippingInfo.city
                 order.state = shippingInfo.state
                 order.zip = shippingInfo.zip
+                order.email = shippingInfo.email
+                order.shippingInfoId = data.result
 
                 
-                navigate('/home/payment-info',{state:order});
+                navigate('/home/myCart',{state:order});
         })
 
     }
