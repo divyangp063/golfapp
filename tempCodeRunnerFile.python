@@ -1,0 +1,34 @@
+#1
+'''def vowels(sentence):
+    words = sentence.split()
+    finalword = words[0]
+    finalWordVowelCount = 0
+    for word in words:
+        currWordVowelCount = 0
+        for letter in word:
+            if letter in ['a', 'e', 'i', 'o', 'u']:
+                currWordVowelCount += 1
+        if (currWordVowelCount > finalWordVowelCount):
+            finalword = word
+            finalWordVowelCount = currWordVowelCount
+    return finalword
+
+result = "Thiiiiiiis is uuuuuuu yyyy iiiii ooooooooooooooooooooooo yyyyyyyyyyyyyyyyyyyyyyyyy"
+print(vowels(result))'''
+
+def shift_encipher(str, shift):
+    result = ""
+    for char in str:
+        if char.isalpha():
+            shift_amount = shift % 26
+            if char.islower():
+                result += chr((ord(char) - ord('a') + shift_amount) % 26 + ord('a'))
+            elif char.isupper():
+                result += chr((ord(char) - ord('A') + shift_amount) % 26 + ord('A'))
+        else:
+            result += char
+    return result
+
+cipher1 = "abcabcabc"
+print(shift_encipher(cipher1, 2))
+

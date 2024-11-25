@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import './navbar.css';
 import './Home.css'; // Import custom CSS
 
 const Home = () => {
+    const location = useLocation();
     const [order, setOrder] = useState({
         buyQuantity: [],
         productPrice: [],
@@ -20,34 +21,47 @@ const Home = () => {
         zip: '',
     });
     const [isSelected, setIsSelected] = useState([]);
-    const [inventory, setInventory] = useState([]);
+    const [inventory, setInventory] = useState(location.state?.updatedInventory || []);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('https://xjz3fpwsp6.execute-api.us-east-2.amazonaws.com/prod/inventory-management/inventory')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setInventory(data);
-                setIsSelected(new Array(data.length).fill(false));
-                setOrder({
-                    /* Map items to their corresponding API spots */
-                    ...order,
-                    productName: data.map(item => item.NAME),
-                    buyQuantity: new Array(data.length).fill(0),
-                    productImage: data.map(item => item.IMAGE),
-                    productPrice: data.map(item => item.UNIT_PRICE),
-                    productDescription: data.map(item => item.DESCRIPTION)
+        if (!location.state?.updatedInventory) {
+            fetch('https://xjz3fpwsp6.execute-api.us-east-2.amazonaws.com/prod/inventory-management/inventory')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setInventory(data);
+                    setIsSelected(new Array(data.length).fill(false));
+                    setOrder({
+                        /* Map items to their corresponding API spots */
+                        ...order,
+                        productName: data.map(item => item.NAME),
+                        buyQuantity: new Array(data.length).fill(0),
+                        productImage: data.map(item => item.IMAGE),
+                        productPrice: data.map(item => item.UNIT_PRICE),
+                        productDescription: data.map(item => item.DESCRIPTION)
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching inventory:', error);
                 });
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+        } else {
+            setIsSelected(new Array(inventory.length).fill(false));
+            setOrder({
+                /* Map items to their corresponding API spots */
+                ...order,
+                productName: inventory.map(item => item.NAME),
+                buyQuantity: new Array(inventory.length).fill(0),
+                productImage: inventory.map(item => item.IMAGE),
+                productPrice: inventory.map(item => item.UNIT_PRICE),
+                productDescription: inventory.map(item => item.DESCRIPTION)
             });
-    }, []);
+        }
+    }, [location.state?.updatedInventory]);
 
     const handleIncrement = (index) => {
         const newOrder = { ...order };
