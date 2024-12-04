@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/golfapp/static/css/main.0277be71.css",
+    "main.js": "/golfapp/static/js/main.c7dc696e.js",
+    "static/js/453.ec22361c.chunk.js": "/golfapp/static/js/453.ec22361c.chunk.js",
+    "static/media/Divyang.jpg": "/golfapp/static/media/Divyang.ae983208c883cf2c4e39.jpg",
+    "static/media/V1XCover.jpg": "/golfapp/static/media/V1XCover.ac874c7dce3d0945318b.jpg",
+    "static/media/BridgestoneE6.jpg": "/golfapp/static/media/BridgestoneE6.702f0bd5a444fa5e0ed2.jpg",
+    "static/media/Mohamed.jpg": "/golfapp/static/media/Mohamed.8a4c36367c63f139cab0.jpg",
+    "static/media/CallawayDiablo.jpg": "/golfapp/static/media/CallawayDiablo.db43d0c577bb61642d49.jpg",
+    "static/media/BridgestoneTout.jpg": "/golfapp/static/media/BridgestoneTout.74fe0bd99a451f42aed7.jpg",
+    "static/media/CallawayWarbird.jpg": "/golfapp/static/media/CallawayWarbird.35022065958ae27456be.jpg",
+    "index.html": "/golfapp/index.html",
+    "static/media/Info.txt": "/golfapp/static/media/Info.56e5052b2fbc06d3ede4.txt",
+    "main.0277be71.css.map": "/golfapp/static/css/main.0277be71.css.map",
+    "main.c7dc696e.js.map": "/golfapp/static/js/main.c7dc696e.js.map",
+    "453.ec22361c.chunk.js.map": "/golfapp/static/js/453.ec22361c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0277be71.css",
+    "static/js/main.c7dc696e.js"
+  ]
+}
